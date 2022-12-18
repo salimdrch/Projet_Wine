@@ -1,14 +1,19 @@
 from fastapi import APIRouter
-from api.wine import Wine
+import os 
+import model.models as model
+
 
 router = APIRouter()
+
+#model = models.trainModel('../../datasource/Wines.csv')
 
 # serializ a model
 @router.get("/api/model")
 async def get_model_serialize():
     response = "model already serialized"
-    # TODO: if your model isn't serializ use your function
-    # and change response = "serialized model"
+    if not os.path.isfile("app/endpoints/model/rf_classifier.pkl"):
+        model.serealizer()
+        response = "serialized model"
     return {"message": response}
 
 # get information about the model
@@ -25,21 +30,21 @@ async def add_item_model(id: int,fixed_acidity: float, volatile_acidity: float, 
                         alcohol: float, quality: float):
     
     # new wine with the data put by the user
-    new_wine = Wine(
-        fixed_acidity = fixed_acidity,
-        volatile_acidity = volatile_acidity,
-        citric_acid = citric_acid,
-        residual_sugar = float,
-        chlorides = residual_sugar,
-        free_sulfur_dioxide = free_sulfur_dioxide,
-        total_sulfur_dioxide = total_sulfur_dioxide,
-        density = density,
-        pH = pH,
-        sulphates = sulphates,
-        alcohol = alcohol,
-        quality = quality,
-        id = id
-    ) 
+    new_wine = {
+        "fixed_acidity" : fixed_acidity,
+        "volatile_acidity" : volatile_acidity,
+        "citric_acid" : citric_acid,
+        "residual_sugar" : float,
+        "chlorides" : residual_sugar,
+        "free_sulfur_dioxide" : free_sulfur_dioxide,
+        "total_sulfur_dioxide" : total_sulfur_dioxide,
+        "density" : density,
+        "pH" : pH,
+        "sulphates" : sulphates,
+        "alcohol" : alcohol,
+        "quality" : quality,
+        "id" : id
+    } 
     # TODO: use fonction to add wine in the model 
     return {"message": "Adding an additional wine in the model"}
 

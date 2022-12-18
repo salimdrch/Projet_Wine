@@ -1,11 +1,12 @@
 from pyexpat import model
 from fastapi import FastAPI
-from api.endpoints import model_predict, model
+from api.endpoints import model_predict
+from api.endpoints import model_api
 
 
 app = FastAPI()
 app.include_router(model_predict.router)
-app.include_router(model.router)
+app.include_router(model_api.router)
 
 
 @app.get("/")
