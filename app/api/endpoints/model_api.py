@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import os 
-import model.models as model
+from model.models import models
 
 
 router = APIRouter()
@@ -12,7 +12,7 @@ router = APIRouter()
 async def get_model_serialize():
     response = "model already serialized"
     if not os.path.isfile("app/endpoints/model/rf_classifier.pkl"):
-        model.serealizer()
+        models.serealizer()
         response = "serialized model"
     return {"message": response}
 
