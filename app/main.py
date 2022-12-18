@@ -1,6 +1,4 @@
 from pyexpat import model
-from typing import Optional
-from webbrowser import get
 from fastapi import FastAPI
 from api.endpoints import model_predict, model
 
